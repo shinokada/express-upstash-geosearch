@@ -28,7 +28,7 @@ Login to Upstash and find the database connection code and add it to `.env` file
 For example:
 
 ```bash
-UPSTASH_REDIS=redis://default:cxxxxxxxxxxx22222xxxxxxxdddddddccccc@apn1-apt-jennet-33538.upstash.io:33538
+UPSTASH_REDIS=redis://default:xxxxxxxxxxxxxxxxxxxxxxxxxxxx@apn1-apt-jennet-33538.upstash.io:33538
 ```
 
 ## Starting the server
