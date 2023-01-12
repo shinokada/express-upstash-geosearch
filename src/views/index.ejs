@@ -4,28 +4,36 @@
   <%= title %>
 </h1>
 
-<h2 class="text-3xl dark:text-white py-4">Examples</h2>
-<ul class="text-xl max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
-  <a href="/location">
-    <li class="flex items-center pt-2">
-      Location
-    </li>
-  </a>
-  <a href="/from-northpole/6000">
-    <li class="flex items-center pt-2">
-      Cities within 6000 km of the North Pole
-    </li>
-  </a>
-  <a href="/nearby-cities/1000">
-    <li class="flex items-center pt-2">
-      Nearby cities
-    </li>
-  </a>
-  <a href="/around/-74/40/1000">
-    <li class="flex items-center pt-2">
-      Find Cities Near a Specific Location using Longitude and Latitude Coordinates
-    </li>
-  </a>
-</ul>
+<p class="text-xl dark:text-white py-8">
+  This code is for a web application that uses the ioredis library to interact with a Upstash database. The application allows users to search for cities based on their location by specifying coordinates and distance.
+  This app utilizes the Redis client's geospatial commands to search for cities within a specified radius of a given location.
+</p>
 
+<h2 class="text-3xl dark:text-white py-4">Examples</h2>
+
+<div class="flex flex-row space-x-4">
+  <a href="/location" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Location</h5>
+    <p class="font-normal text-gray-700 dark:text-gray-400">This page uses a browser's geolocation capabilities to detect user's location. It will only work if they allow it.</p>
+  </a>
+
+  <a href="/from-northpole/6000" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Cities within 6000 km of the North Pole</h5>
+    <p class="font-normal text-gray-700 dark:text-gray-400">
+      This page allows users to search for cities within a certain radius of a specific point on the earth's surface defined by longitude and latitude coordinates.</p>
+  </a>
+
+  <a href="/nearby-cities/1000" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Nearby cities</h5>
+    <p class="font-normal text-gray-700 dark:text-gray-400">
+      This page utilizes browser's geolocation capabilities to detect the user's location and returns the nearby cities within a specified radius from the Upstash database.</p>
+  </a>
+
+  <a href="/around/-74/40/1000" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Nearby cities</h5>
+    <p class="font-normal text-gray-700 dark:text-gray-400">
+      This page finds cities near a specific location using longitude and latitude coordinates.</p>
+  </a>
+
+</div>
 <%- include('partials/footer'); %>
