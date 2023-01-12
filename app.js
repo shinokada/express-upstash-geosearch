@@ -7,10 +7,6 @@ import { fromNorthPole, aroundLockm, nearbyCities, nearbyUsCities, client } from
 import { addUsCities } from './src/uscities.js';
 import { addIntCities } from './src/worldcities.js';
 
-client.flushall();
-addUsCities();
-addIntCities();
-
 const app = express();
 app.use(express.json());
 app.use(Bodyparser.json());
@@ -39,7 +35,13 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) => {
   const title = 'Express Redis Upstash';
   res.render('index', { title: title });
+})
 
+app.get('/feed', (req, res) => {
+  client.flushall();
+  addUsCities();
+  addIntCities();
+  res.send('Done');
 })
 
 app.get('/location', (req, res) => {
