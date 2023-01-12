@@ -1,0 +1,22 @@
+<%- include('partials/header',{title}); %>
+
+<h1 class="text-4xl dark:text-white py-8">
+  <%= title %>
+</h1>
+
+<p class="text-xl dark:text-white py-8">
+  The number at the end of the URL, (6000), represents the distance in kilometers from the North Pole, You can change it to any other number and it'll display the different cities located within that distance.
+</p>
+
+<ul class="text-xl dark:text-white">
+  <% data.forEach((city) => { %>
+  <li>
+    <%= city[0] %>
+    <%= parseInt(city[1]) %> km
+  </li>
+  <% }); %>
+</ul>
+
+
+
+<%- include('partials/footer'); %>

@@ -1,0 +1,40 @@
+<%- include('partials/header',{title:title}); %>
+
+<h1 class="text-4xl dark:text-white py-8">
+  Your location is:
+</h1>
+
+<p class="text-xl dark:text-white py-8">Please note that location detection feature uses your browser's geolocation capabilities, so this feature will only work if you allow it.</p>
+
+<div class="text-3xl dark:text-white pt-8" id="location"></div>
+<script>
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const data = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      };
+
+      const options = {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      fetch("/api/location", options)
+        .then((res) => res.json())
+        .then((location) => {
+          console.log('location: ', location)
+          // Display the location on the page
+          const locationElement = document.getElementById('location');
+          locationElement.innerHTML = `Latitude: ${location.latitude}, Longitude: ${location.longitude}`;
+        });
+    });
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+</script>
+
+<%- include('partials/footer'); %>

@@ -1,7 +1,7 @@
 {
-  "name": "flowbite-express",
+  "name": "express-redis-upstash",
   "version": "1.0.0",
-  "description": "Flowbite on Express",
+  "description": "ExpressJS, Redis, Upstash, ES modules, Tailwind CSS, and Flowbite",
   "main": "app.js",
   "type": "module",
   "scripts": {
@@ -17,9 +17,11 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "body-parser": "^1.20.1",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
-    "flowbite": "^1.6.1"
+    "flowbite": "^1.6.1",
+    "ioredis": "^5.2.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

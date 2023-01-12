@@ -1,0 +1,48 @@
+<%- include('partials/header',{title:title}); %>
+
+<h1 class="text-4xl font-bold dark:text-white py-8">
+  Your nearby cities within <%= distance %> km:
+</h1>
+
+<p class="text-xl dark:text-white py-8">
+  This automatically detects and uses your current location to calculate the nearby cities within 1000 km radius. You can adjust the distance in the URL by replacing the number (1000) to find different nearby cities within that radius. Please note that location detection feature uses your browser's geolocation capabilities, so this feature will only work if you allow it.
+</p>
+
+<div id="distance" data-test=<%= distance %>></div>
+<ul id="city-list" class="text-xl dark:text-white"></ul>
+<script>
+  const distance = document.getElementById('distance').dataset.test
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const data = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        distance: distance
+      };
+
+      const options = {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      fetch("/nearby-cities", options)
+        .then((res) => res.json())
+        .then((cities) => {
+          // Display the cities on the page
+          const cityListElement = document.getElementById('city-list');
+          cities.forEach((city) => {
+            const cityElement = document.createElement('li');
+            cityElement.innerHTML = `${city[0]} (${parseInt(city[1])} km)`;
+            cityListElement.appendChild(cityElement);
+          });
+        });
+    });
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+</script>
+
+<%- include('partials/footer'); %>
