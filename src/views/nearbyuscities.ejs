@@ -1,11 +1,11 @@
 <%- include('partials/header',{title:title}); %>
 
 <h1 class="text-4xl font-bold dark:text-white py-8">
-  Your nearby cities within <%= distance %> km:
+  Your nearby US cities within <%= distance %> km:
 </h1>
 
 <p class="text-xl dark:text-white py-8">
-  This automatically detects and uses your current location to calculate the nearby cities within 5000 km radius. You can adjust the distance in the URL by replacing the number (5000) to find different nearby cities within that radius. Please note that location detection feature uses your browser's geolocation capabilities, so this feature will only work if you allow it.
+  This automatically detects and uses your current location to calculate the nearby US cities within 10000 km radius. You can adjust the distance in the URL by replacing the number (10000) to find different nearby US cities within that radius. Please note that location detection feature uses your browser's geolocation capabilities, so this feature will only work if you allow it.
 </p>
 
 <div id="distance" data-test=<%= distance %>></div>
@@ -33,7 +33,7 @@
       };
 
       try {
-        const response = await fetch("/nearby-cities", options)
+        const response = await fetch("/nearby-us-cities", options)
         const responseTimestamp = response.headers.get("Timestamp");
         const responseTime = Date.now() - responseTimestamp;
         console.log(`Response Time: ${responseTime}ms`);
@@ -53,8 +53,5 @@
     console.log("Geolocation is not supported by this browser.");
   }
 </script>
-
-</script>
-
 
 <%- include('partials/footer'); %>

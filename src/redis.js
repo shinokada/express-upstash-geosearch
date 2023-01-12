@@ -16,8 +16,12 @@ const nearbyCities = async (long, lat, km) => {
   return await client.geosearch('cities', 'FROMLONLAT', long, lat, 'BYRADIUS', km, 'km', 'ASC', 'WITHDIST')
 }
 
+const nearbyUsCities = async (long, lat, km) => {
+  return await client.geosearch('uscities', 'FROMLONLAT', long, lat, 'BYRADIUS', km, 'km', 'ASC', 'WITHDIST')
+}
+
 const fromNorthPole = async (km) => {
   return await client.geosearch('cities', 'FROMMEMBER', 'North Pole', 'BYRADIUS', km, 'km', 'WITHDIST');
 };
 
-export { fromNorthPole, aroundLockm, nearbyCities, client };
+export { fromNorthPole, aroundLockm, nearbyCities, nearbyUsCities, client };

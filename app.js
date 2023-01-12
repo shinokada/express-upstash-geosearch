@@ -3,7 +3,7 @@ import path from 'path';
 import { v4 } from 'uuid';
 import { fileURLToPath } from 'url';
 import Bodyparser from 'body-parser';
-import { fromNorthPole, aroundLockm, nearbyCities, client } from './src/redis.js';
+import { fromNorthPole, aroundLockm, nearbyCities, nearbyUsCities, client } from './src/redis.js';
 import { addUsCities } from './src/uscities.js';
 import { addIntCities } from './src/worldcities.js';
 
@@ -25,6 +25,10 @@ app.use((req, res, next) => {
   console.time(`request: ${req.id}`);
   next();
 });
+app.use((req, res, next) => {
+  res.set('Timestamp', Date.now());
+  next();
+});
 
 // set view engine and view path
 app.set('views', './src/views');
@@ -35,13 +39,13 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) => {
   const title = 'Express Redis Upstash';
   res.render('index', { title: title });
-  console.timeEnd(`request: ${req.id}`);
+
 })
 
 app.get('/location', (req, res) => {
   const title = 'Location';
   res.render('location', { title });
-  console.timeEnd(`request: ${req.id}`);
+
 })
 
 app.post("/api/location", (req, res) => {
@@ -53,7 +57,7 @@ app.get('/nearby-cities/:distance', (req, res) => {
   const distance = req.params.distance;
   const title = 'Nearby cities';
   res.render('nearbycities', { distance: distance, title: title });
-  console.timeEnd(`request: ${req.id}`);
+
 })
 
 app.post('/nearby-cities', async (req, res) => {
@@ -65,13 +69,29 @@ app.post('/nearby-cities', async (req, res) => {
   res.send(cities);
 });
 
+app.get('/nearby-us-cities/:distance', (req, res) => {
+  const distance = req.params.distance;
+  const title = 'Nearby US Cities';
+  res.render('nearbyuscities', { distance: distance, title: title });
+
+})
+
+app.post('/nearby-us-cities', async (req, res) => {
+  // Get the user's location from the request body
+  const latitude = parseInt(req.body.latitude);
+  const longitude = parseInt(req.body.longitude);
+  const distance = parseInt(req.body.distance);
+  const cities = await nearbyUsCities(longitude, latitude, distance);
+  res.send(cities);
+});
+
 app.get('/from-northpole/:km', async (req, res) => {
   const distance = parseInt(req.params.km);
   const data = await fromNorthPole(distance);
   // console.log(typeof data)
   const title = `Cities within ${distance} km of the North Pole`
   res.render('from-northpole', { data, title });
-  console.timeEnd(`request: ${req.id}`);
+
 });
 
 app.get('/around/:long/:lat/:km', async (req, res) => {
